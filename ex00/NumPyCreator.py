@@ -1,8 +1,9 @@
 import numpy as np
 import typing
 
-class  NumPyCreator:
-    def __init__(self, data=None, shape=None):
+
+class NumPyCreator:
+    def __init__(self, data=[], shape=[]):
         self.data = data
         self.shape = shape
 
@@ -13,7 +14,7 @@ class  NumPyCreator:
         self.data = np.array(lst)
         self.shape = np.shape(self.data)
         return self.data
-        
+
     def from_tuple(self, tpl):
         if not isinstance(tpl, tuple):
             print("ERROR Type. Need tuple")
@@ -25,7 +26,7 @@ class  NumPyCreator:
     def from_iterable(self, itr):
         if not isinstance(itr, typing.Iterable):
             print("ERROR Type. Need iterable")
-            quit()            
+            quit()
         start = itr[0]
         end = 0
         for key in itr:
@@ -49,7 +50,7 @@ class  NumPyCreator:
         self.data = np.random.random_sample(shape)
         self.shape = np.shape(self.data)
         return self.data
-        
+
     def identity(self, n):
         if not isinstance(n, int):
             print("ERROR Type. Need integer")
@@ -62,8 +63,9 @@ class  NumPyCreator:
         if self.shape[0] < self.data.size:
             for i, val in enumerate(self.data):
                 s += '['
+                type_s = self.data.dtype
                 for j, key in enumerate(val):
-                    if self.data.dtype == 'int64' or self.data.dtype == 'float64':
+                    if type_s == 'int64' or type_s == 'float64':
                         if j == self.shape[1] - 1:
                             s += "{}".format(key)
                         else:
@@ -95,14 +97,15 @@ class  NumPyCreator:
     def __repr__(self):
         return str(self.data)
 
+
 npc = NumPyCreator()
-npc.from_list([[1,2,3],[6,3,4]])
+npc.from_list([[1, 2, 3], [6, 3, 4]])
 print("-----------\n", npc)
 npc.from_tuple(("a", "b", "c"))
 print("-----------\n", npc)
 npc.from_iterable(range(5))
 print("-----------\n", npc)
-shape=(3, 4)
+shape = (3, 4)
 npc.from_shape(shape)
 print("-----------\n", npc)
 npc.random(shape)
